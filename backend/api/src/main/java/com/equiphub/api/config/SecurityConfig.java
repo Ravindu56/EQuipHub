@@ -40,10 +40,11 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(exception -> exception
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint))
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint))
+            .sessionManagement(session -> session
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            // Authorization rules (paths WITHOUT /api/v1 prefix)
             .authorizeHttpRequests(auth -> auth
                 // ── Authenticated auth endpoints FIRST (before /auth/** wildcard) ──
                 .requestMatchers("/auth/me", "/auth/refresh", "/auth/logout")
@@ -63,7 +64,13 @@ public class SecurityConfig {
                     "/actuator/info"
                 ).permitAll()
 
-                // OAuth2 endpoints
+                .requestMatchers(
+                "/auth/me",           // User profile endpoint
+                "/auth/refresh",      // Token refresh
+                "/auth/logout"
+                ).authenticated()
+                
+                // OAuth2 endpoints (if used later)
                 .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
 
                 // ── Admin endpoints ──

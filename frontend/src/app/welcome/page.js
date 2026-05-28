@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import './welcome.module.css';
+import './welcome.css';
 
 export default function WelcomePage() {
   return (
@@ -154,7 +154,7 @@ export default function WelcomePage() {
           <div className="welcome-roles-grid">
             {[
               { role: 'Student', icon: '🎓', desc: 'Browse equipment, submit requests, track status, manage penalties.' },
-              { role: 'Lecturer', icon: '👨‍🏫', desc: 'Review and approve or reject student equipment requests.' },
+              { role: 'Lecturer', icon: '👨\u200d🏫', desc: 'Review and approve or reject student equipment requests.' },
               { role: 'Technical Officer', icon: '🔧', desc: 'Issue equipment, process returns, conduct condition inspections.' },
               { role: 'Dept. Admin', icon: '🏛️', desc: 'Manage department inventory, staff, students and configurations.' },
               { role: 'System Admin', icon: '⚙️', desc: 'System-wide oversight, department creation and global configuration.' },

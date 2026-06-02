@@ -9,3 +9,8 @@
 *.env.production
 logs/equiphub-dev.log
 logs/equiphub-dev.log
+.env
+backend/api/.env
+run.log
+logs/
+backend/api/logs/

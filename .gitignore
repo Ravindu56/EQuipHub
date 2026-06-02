@@ -2,6 +2,12 @@
 /apps/web/node_modules
 /node_modules/*
 *.log
+run.log
+logs/
+
+# Environment secrets — NEVER commit these
+.env
+.env.local
 *.env
 *.env.local
 *.env.development

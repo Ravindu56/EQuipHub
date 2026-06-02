@@ -5,9 +5,10 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/equiphub_dev
-    username: postgres
-    password: 12345678  # Replace with your actual password
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/equiphub_dev}
+    username: ${DATABASE_USERNAME:postgres}
+    # Loaded from .env file — no hardcoded default
+    password: ${DATABASE_PASSWORD}
     hikari:
       maximum-pool-size: 10
   
@@ -22,8 +23,10 @@ spring:
   
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      # Empty = no-auth for local Docker Redis
+      password: ${REDIS_PASSWORD:}
   
   devtools:
     restart:

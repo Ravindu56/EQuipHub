@@ -15,7 +15,8 @@ spring:
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/equiphub_dev}
     username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:12345678}
+    # No default — application fails fast if DATABASE_PASSWORD is not set
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
     
     # Connection Pool (HikariCP)
@@ -48,7 +49,8 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
-      password: ${REDIS_PASSWORD:12345678}
+      # Empty string default = no-auth local Redis. Set REDIS_PASSWORD in .env for cloud Redis.
+      password: ${REDIS_PASSWORD:}
       ssl:
         enabled: ${REDIS_SSL:false}
       timeout: 2000
@@ -75,8 +77,9 @@ spring:
   mail:
       host: smtp.gmail.com
       port: 587
-      username: ${MAIL_USERNAME:eqiphub@gmail.com}
-      password: ${MAIL_PASSWORD:lclezjwwnkyqpgml}
+      # No defaults for credentials — must be provided via environment variables
+      username: ${MAIL_USERNAME}
+      password: ${MAIL_PASSWORD}
       properties:
         mail:
           smtp:
@@ -127,7 +130,8 @@ server:
 
 # ========== JWT CONFIGURATION ==========
 jwt:
-  secret: ${JWT_SECRET:YourSuperSecretJWTKeyMinimum256BitsForHS256AlgorithmProductionReadyEquipHubSecurityToken2026}
+  # No default — application fails fast if JWT_SECRET is not set
+  secret: ${JWT_SECRET}
   access-token-expiration: ${JWT_ACCESS_EXPIRATION:86400000} # 24 hours
   refresh-token-expiration: ${JWT_REFRESH_EXPIRATION:604800000} # 7 days
   issuer: equiphub-api
@@ -184,15 +188,3 @@ app:
   description: Equipment Request Management System for Computer Engineering & EEE Departments
   base-url: ${APP_BASE_URL:http://localhost:8080}
   frontend-url: ${FRONTEND_URL:http://localhost:3000}
-  
-  # # Email Templates
-  # email:
-  #   from-address: ${EMAIL_FROM:noreply@equiphub.university.edu}
-  #   from-name: EQuipHub System
-  
-  # # SIS API Configuration
-  # sis:
-  #   api-url: ${SIS_API_URL:https://sis.university.edu/api}
-  #   api-key: ${SIS_API_KEY:your-sis-api-key}
-  #   timeout: 30000
-  #   enabled: ${SIS_INTEGRATION_ENABLED:false}

@@ -39,28 +39,35 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set lowercase owner
+        id: owner
+        run: echo "name=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build & Push Backend
         uses: docker/build-push-action@v5
         with:
           context: ./backend/api
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/equiphub-backend:latest
-            ghcr.io/${{ github.repository_owner }}/equiphub-backend:${{ github.sha }}
+            ghcr.io/${{ steps.owner.outputs.name }}/equiphub-backend:latest
+            ghcr.io/${{ steps.owner.outputs.name }}/equiphub-backend:${{ github.sha }}
+
       - name: Build & Push Frontend
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/equiphub-frontend:latest
-            ghcr.io/${{ github.repository_owner }}/equiphub-frontend:${{ github.sha }}
+            ghcr.io/${{ steps.owner.outputs.name }}/equiphub-frontend:latest
+            ghcr.io/${{ steps.owner.outputs.name }}/equiphub-frontend:${{ github.sha }}
 
   deploy:
     name: Deploy to Production Server

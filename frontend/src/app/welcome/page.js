@@ -124,9 +124,9 @@ export default function WelcomePage() {
           <div className="welcome-tech-grid">
             {[
               { layer: '📱 Mobile', items: ['React Native', 'Expo SDK 54', 'React 19'], color: 'var(--primary)' },
-              { layer: '⚙️ Backend', items: ['Spring Boot 3.2', 'Java 17', 'Spring Security'], color: 'var(--primary-light)' },
-              { layer: '🌐 Web', items: ['Next.js 14', 'Tailwind CSS', 'TypeScript 5'], color: 'var(--secondary)' },
-              { layer: '🗄️ Database', items: ['PostgreSQL (Neon)', 'Redis (Upstash)', 'Spring JPA'], color: 'var(--muted)' },
+              { layer: '⚙️ Backend', items: ['Spring Boot 3.2', 'Java 21', 'Spring Security'], color: 'var(--primary-light)' },
+              { layer: '🌐 Web', items: ['Next.js 15', 'CSS Modules', 'JavaScript'], color: 'var(--secondary)' },
+              { layer: '🗄️ Database', items: ['PostgreSQL 15', 'Redis 7', 'Flyway Migrations'], color: 'var(--muted)' },
             ].map((t, i) => (
               <div key={i} className="glass-card welcome-tech-card">
                 <div className="welcome-tech-layer" style={{ color: t.color }}>{t.layer}</div>
@@ -195,7 +195,7 @@ export default function WelcomePage() {
             <span style={{ fontWeight: 700, color: 'var(--text)' }}>EQuip<span style={{ color: 'var(--primary)' }}>Hub</span></span>
           </div>
           <p className="welcome-footer-copy">
-            Built with ❤️ for university equipment management.
+            © {new Date().getFullYear()} EQuipHub — Built for university equipment management.
           </p>
           <a
             href="https://github.com/Ravindu56/EQuipHub"
